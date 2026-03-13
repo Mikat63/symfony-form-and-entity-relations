@@ -27,6 +27,17 @@ class Genre
     )]
     private ?string $name = null;
 
+    /**
+     * @var Collection<int, Track>
+     */
+    #[ORM\ManyToMany(targetEntity: Track::class, mappedBy: 'genres')]
+    private Collection $tracks;
+
+    public function __construct()
+    {
+        $this->tracks = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -40,6 +51,33 @@ class Genre
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Track>
+     */
+    public function getTracks(): Collection
+    {
+        return $this->tracks;
+    }
+
+    public function addTrack(Track $track): static
+    {
+        if (!$this->tracks->contains($track)) {
+            $this->tracks->add($track);
+            $track->addGenre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrack(Track $track): static
+    {
+        if ($this->tracks->removeElement($track)) {
+            $track->removeGenre($this);
+        }
 
         return $this;
     }

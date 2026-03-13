@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AlbumRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,7 +37,23 @@ class Album
     
     private ?int $year = null;
 
-    public function __construct() {}
+    /**
+     * @var Collection<int, Artist>
+     */
+    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'albums')]
+    private Collection $artists;
+
+    /**
+     * @var Collection<int, Track>
+     */
+    #[ORM\OneToMany(targetEntity: Track::class, mappedBy: 'album')]
+    private Collection $tracks;
+
+    public function __construct()
+    {
+        $this->artists = new ArrayCollection();
+        $this->tracks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -62,6 +80,57 @@ class Album
     public function setYear(int $year): static
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists->add($artist);
+            $artist->addAlbum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        if ($this->artists->removeElement($artist)) {
+            $artist->removeAlbum($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Track>
+     */
+    public function getTracks(): Collection
+    {
+        return $this->tracks;
+    }
+
+    public function addTrack(Track $track): static
+    {
+        if (!$this->tracks->contains($track)) {
+            $this->tracks->add($track);
+        }
+
+        return $this;
+    }
+
+    public function removeTrack(Track $track): static
+    {
+        $this->tracks->removeElement($track);
 
         return $this;
     }
