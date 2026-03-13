@@ -23,6 +23,8 @@ class Track
         maxMessage: 'Le titre doit avoir 255 caractères max',
     )]
     private ?string $name = null;
+
+    public function __construct() {}
     public function getId(): ?int
     {
         return $this->id;
