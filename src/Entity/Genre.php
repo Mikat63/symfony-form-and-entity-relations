@@ -33,6 +33,8 @@ class Genre
     #[ORM\ManyToMany(targetEntity: Track::class, mappedBy: 'genres')]
     private Collection $tracks;
 
+ 
+
     public function __construct()
     {
         $this->tracks = new ArrayCollection();
@@ -81,4 +83,5 @@ class Genre
 
         return $this;
     }
+
 }

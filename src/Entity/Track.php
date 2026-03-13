@@ -31,13 +31,21 @@ class Track
     private ?Album $album = null;
 
     /**
-     * @var Collection<int, genre>
+     * @var Collection<int, Artist>
      */
-    #[ORM\ManyToMany(targetEntity: genre::class, inversedBy: 'tracks')]
+    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'tracks')]
+    private Collection $artists;
+
+    /**
+     * @var Collection<int, Genre>
+     */
+    #[ORM\ManyToMany(targetEntity: Genre::class, inversedBy: 'tracks')]
     private Collection $genres;
 
     public function __construct()
     {
+     
+        $this->artists = new ArrayCollection();
         $this->genres = new ArrayCollection();
     }
 
@@ -68,15 +76,40 @@ class Track
         return $this;
     }
 
+
     /**
-     * @return Collection<int, genre>
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->artists->contains($artist)) {
+            $this->artists->add($artist);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        $this->artists->removeElement($artist);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
      */
     public function getGenres(): Collection
     {
         return $this->genres;
     }
 
-    public function addGenre(genre $genre): static
+    public function addGenre(Genre $genre): static
     {
         if (!$this->genres->contains($genre)) {
             $this->genres->add($genre);
@@ -85,7 +118,7 @@ class Track
         return $this;
     }
 
-    public function removeGenre(genre $genre): static
+    public function removeGenre(Genre $genre): static
     {
         $this->genres->removeElement($genre);
 

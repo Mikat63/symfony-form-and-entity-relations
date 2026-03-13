@@ -32,9 +32,16 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'artists')]
     private Collection $albums;
 
+    /**
+     * @var Collection<int, Track>
+     */
+    #[ORM\ManyToMany(targetEntity: Track::class, mappedBy: 'artists')]
+    private Collection $tracks;
+
     public function __construct()
     {
         $this->albums = new ArrayCollection();
+        $this->tracks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,6 +81,33 @@ class Artist
     public function removeAlbum(Album $album): static
     {
         $this->albums->removeElement($album);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Track>
+     */
+    public function getTracks(): Collection
+    {
+        return $this->tracks;
+    }
+
+    public function addTrack(Track $track): static
+    {
+        if (!$this->tracks->contains($track)) {
+            $this->tracks->add($track);
+            $track->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrack(Track $track): static
+    {
+        if ($this->tracks->removeElement($track)) {
+            $track->removeArtist($this);
+        }
 
         return $this;
     }
