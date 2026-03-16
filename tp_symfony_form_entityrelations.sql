@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 13 mars 2026 à 16:10
+-- Généré le : lun. 16 mars 2026 à 08:07
 -- Version du serveur : 9.1.0
--- Version de PHP : 8.3.14
+-- Version de PHP : 8.4.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,23 @@ CREATE TABLE IF NOT EXISTS `album` (
   `name` varchar(255) NOT NULL,
   `year` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `album`
+--
+
+INSERT INTO `album` (`id`, `name`, `year`) VALUES
+(1, 'Divide', 2017),
+(2, 'After Hours', 2019),
+(3, 'Uptown Special', 2014),
+(4, '21', 2010),
+(5, 'Nevermind', 1991),
+(6, 'Thriller', 1982),
+(7, '8 Mile (OST)', 2002),
+(8, 'Hunting High and Low', 1985),
+(9, 'Hotel California', 1976),
+(10, 'Ratatouille (OST)', 2007);
 
 -- --------------------------------------------------------
 
@@ -46,7 +62,24 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `artist`
+--
+
+INSERT INTO `artist` (`id`, `name`) VALUES
+(1, 'Ed Sheeran'),
+(2, 'The Weekend'),
+(3, 'Mark Ronson'),
+(4, 'Bruno Mars'),
+(5, 'Adèle'),
+(6, 'Nirvana'),
+(7, 'Michael Jackson'),
+(8, 'Eminem'),
+(9, 'a-ah'),
+(10, 'Eagles'),
+(11, 'Camille');
 
 -- --------------------------------------------------------
 
@@ -62,6 +95,23 @@ CREATE TABLE IF NOT EXISTS `artist_album` (
   KEY `IDX_59945E10B7970CF8` (`artist_id`),
   KEY `IDX_59945E101137ABCF` (`album_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `artist_album`
+--
+
+INSERT INTO `artist_album` (`artist_id`, `album_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 3),
+(5, 4),
+(6, 5),
+(7, 6),
+(8, 7),
+(9, 8),
+(10, 9),
+(11, 10);
 
 -- --------------------------------------------------------
 
@@ -82,8 +132,8 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20260313153934', '2026-03-13 15:40:15', 133),
-('DoctrineMigrations\\Version20260313155251', '2026-03-13 15:53:08', 117);
+('DoctrineMigrations\\Version20260313153934', '2026-03-16 07:16:51', 96),
+('DoctrineMigrations\\Version20260313155251', '2026-03-16 07:16:51', 59);
 
 -- --------------------------------------------------------
 
@@ -96,7 +146,23 @@ CREATE TABLE IF NOT EXISTS `genre` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `genre`
+--
+
+INSERT INTO `genre` (`id`, `name`) VALUES
+(1, 'Pop'),
+(2, 'Synth-Pop'),
+(3, 'Funk'),
+(4, 'Soul'),
+(5, 'Grunge'),
+(6, 'Rock'),
+(7, 'R&B'),
+(8, 'Rap'),
+(9, 'Rock'),
+(10, 'Chanson Française');
 
 -- --------------------------------------------------------
 
@@ -130,7 +196,23 @@ CREATE TABLE IF NOT EXISTS `track` (
   `album_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_D6E3F8A61137ABCF` (`album_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `track`
+--
+
+INSERT INTO `track` (`id`, `name`, `album_id`) VALUES
+(1, 'Shape of You', 1),
+(2, 'Blinding Lights', 2),
+(3, 'Uptown Funk', 3),
+(4, 'Rolling in the deeD', 4),
+(5, 'Smells Like Teen Spirit', 5),
+(6, 'Billie Jeans', 6),
+(7, 'Lose Yourself', 7),
+(8, 'Take On Me', 8),
+(9, 'Hotel California', 9),
+(10, 'Le féstin', 10);
 
 -- --------------------------------------------------------
 
@@ -147,6 +229,23 @@ CREATE TABLE IF NOT EXISTS `track_artist` (
   KEY `IDX_499B576EB7970CF8` (`artist_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `track_artist`
+--
+
+INSERT INTO `track_artist` (`track_id`, `artist_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(3, 4),
+(4, 5),
+(5, 6),
+(6, 7),
+(7, 8),
+(8, 9),
+(9, 10),
+(10, 11);
+
 -- --------------------------------------------------------
 
 --
@@ -161,6 +260,26 @@ CREATE TABLE IF NOT EXISTS `track_genre` (
   KEY `IDX_F3A7915F5ED23C43` (`track_id`),
   KEY `IDX_F3A7915F4296D31F` (`genre_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `track_genre`
+--
+
+INSERT INTO `track_genre` (`track_id`, `genre_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 1),
+(3, 3),
+(4, 1),
+(4, 4),
+(5, 5),
+(5, 6),
+(6, 1),
+(6, 7),
+(7, 8),
+(8, 2),
+(9, 9),
+(10, 10);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
