@@ -9,45 +9,24 @@
 
 	<main class="p-9">
 
-		<div class="tracks-container flex flex-row flex-wrap gap-9">
-			{% for wishListTrack in WishListTracks %}
-				<div class="flex flex-col gap-2 bg-gray-500 rounded-xl p-4 w-[30%] h-auto">
-					<p class="text-white text-[28px] font-bold">
-						{{wishListTrack.name}}
-					</p>
-
-					<div class="flex flex-col text-white text-[24px]">
-						<p>
-							{% for artist in wishListTrack.artists %}
-								{{artist.name}}
-								{% if not loop.last %},
-								{% endif %}
-
-							{% endfor %}
-						</p>
-					</div>
-
-					<div class=" flex flex-row gap-2 text-white text-[24px]">
-						<p>{{wishListTrack.album.name}}
-						</p>
-
-						<p>{{wishListTrack.album.year}}</p>
-					</div>
+		<div class="main-container flex flex-col w-full gap-9">
+			<div>
+				{% include "_partials/_button.html.twig" with {
+				class: 'add-track-btn',
+				title: 'Ajouter une track',
+				bg: 'bg-blue-500'
+			}
+			%}
+			</div>
 
 
-					<div class="flex flex-col text-white text-[24px]">
-						<p>
-							{% for genre in wishListTrack.genres %}
-								{{genre.name}}
-								{% if not loop.last %},
-								{% endif %}
+			<div class="tracks-container flex flex-row justify-center flex-wrap gap-6">
+				{% for wishListTrack in WishListTracks %}
 
-							{% endfor %}
-						</p>
-					</div>
-				</div>
+					{% include "_partials/_trackCard.html.twig" %}
 
-
-			{% endfor %}
+				{% endfor %}
+			</div>
 		</main>
+		<div class="form-modal fixed z-10 w-[80%] h-[400px] bg-gray-300 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
 	{% endblock %}

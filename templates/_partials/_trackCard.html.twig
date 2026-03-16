@@ -1,0 +1,50 @@
+<article class="flex flex-col justify-between gap-2 bg-gray-500 rounded-xl p-4 w-[280px] h-auto outline-none" tabindex="0">
+	<h3 class="text-white text-[28px] font-bold">
+		{{wishListTrack.name}}
+	</h3>
+
+
+	<div>
+		<p class="text-white text-[28px]">
+			{% for artist in wishListTrack.artists %}
+				{{artist.name}}
+				{% if not loop.last %},
+				{% endif %}
+
+			{% endfor %}
+		</p>
+
+		<p class="text-white text-[28px]">{{wishListTrack.album.name}}
+		</p>
+
+		<p class="text-white text-[28px]">{{wishListTrack.album.year}}</p>
+
+
+		<p class="text-white text-[28px]">
+			{% for genre in wishListTrack.genres %}
+				{{genre.name}}
+				{% if not loop.last %},
+				{% endif %}
+
+			{% endfor %}
+		</p>
+
+	</div>
+	<div class="flex flex-row justify-end gap-4">
+		{% include "_partials/_buttonImg.html.twig" with {
+			class: "edit-track-btn",
+			srcImg: asset('icons/edit-icon.svg'),
+			altImg: 'Bouton pour modifier une track',
+			dataId: wishListTrack.id
+		} %}
+
+		{% include "_partials/_buttonImg.html.twig" with {
+			class: "delete-track-btn",
+			srcImg: asset('icons/delete-icon.svg'),
+			altImg: 'Bouton pour modifier une track',
+			dataId: wishListTrack.id
+		} %}
+	</div>
+
+
+</article>
