@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+.typing-effect {
+  display: inline-block;
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  animation: typing 2s steps(20, end) forwards, blink .7s infinite;
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+  100% { border-color: white; }
+}

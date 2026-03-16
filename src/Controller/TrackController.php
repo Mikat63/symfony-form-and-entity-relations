@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Controller;
+
+use App\Repository\TrackRepository;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Track;
+use App\Form\TrackType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+
+final class TrackController extends AbstractController
+{
+    #[Route('/', name: 'app_home', methods: ['GET'])]
+    public function show(TrackRepository $trackRepository): Response
+    {
+
+        $tracks = $trackRepository->findAll();
+
+        return $this->render('track/index.html.twig', [
+            'WishListTracks' => $tracks
+        ]);
+    }
+
+    #[Route('/tracks/new', name: 'app_new_track', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $track = new Track();
+        $CreateAddTrackForm = $this->createForm(TrackType::class, $track);
+        $CreateAddTrackForm->handleRequest($request);
+
+        if ($CreateAddTrackForm->isSubmitted() && $CreateAddTrackForm->isValid()) {
+            $entityManager->persist($track);
+            $entityManager->flush();
+
+            return new JsonResponse(['status' => 'successfuly Added']);
+        }
+
+        return $this->render('_partials/_trackForm.html.twig', [
+            'trackForm' => $CreateAddTrackForm,
+        ]);
+    }
+
+    #[Route('/tracks/edit/{id}', name: 'app_edit_track', methods: ['GET', 'POST'], requirements:['id' => '\\d+'])]
+    public function edit(Track $track, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $CreateAddTrackForm = $this->createForm(TrackType::class, $track);
+        $CreateAddTrackForm->handleRequest($request);
+
+        if ($CreateAddTrackForm->isSubmitted() && $CreateAddTrackForm->isValid()) {
+            $entityManager->persist($track);
+            $entityManager->flush();
+
+            return new JsonResponse(['status' => 'successfuly updated']);
+        }
+
+        return $this->render('_partials/_trackForm.html.twig', [
+            'trackForm' => $CreateAddTrackForm,
+        ]);
+    }
+
+    #[Route('/tracks/delete/{id}', name: 'app_delete_track', methods: ['GET', 'POST'], requirements:['id' => '\\d+'])]
+    public function delete(Track $track, Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $entityManager->remove($track);
+        $entityManager->flush();
+
+        return new JsonResponse(['status' => 'successfuly deleted']);
+
+        return $this->render('_partials/_deleteConfirmModal.html.twig', [
+           
+        ]);
+    }
+}
