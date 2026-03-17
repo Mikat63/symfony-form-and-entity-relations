@@ -3,6 +3,7 @@
 	<head>
 		{# general meta's #}
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>WishMyTracks -
 			{% block title %}{% endblock %}
 		</title>
@@ -11,10 +12,9 @@
 
 		{# CSS & JS #}
 		<link rel="stylesheet" href="{{ asset('styles/app.css') }}"> {% block stylesheets %}{% endblock %}
-
+		<script defer src='{{ asset('scripts/tracks.js')}}'></script>
 		<script src="https://cdn.tailwindcss.com"></script>
 
-		
 
 		{% block javascripts %}
 			{% block importmap %}
@@ -24,6 +24,8 @@
 
 		{% endblock %}
 	</head>
-	<body class="bg-[#4C4848]"> {% block body %}{% endblock %}
-		</body>
-	</html>
+	<body class="bg-[#4C4848]">
+		{% include "_partials/_header.html.twig" %}
+		{% block body %}{% endblock %}
+	</body>
+</html>

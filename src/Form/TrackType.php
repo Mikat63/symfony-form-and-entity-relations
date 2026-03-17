@@ -18,29 +18,31 @@ class TrackType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add(
-                'artist',
-                EntityType::class,
+                'artists',
+                TextType::class,
                 [
-                    'class' => Artist::class,
-                    'multiple' => true,
                     'required' => true
                 ]
             )
             ->add(
                 'album',
-                EntityType::class,
+                TextType::class,
+                ['required' => false]
+            )
+
+            ->add(
+                'year',
+                TextType::class,
                 [
-                    'class' => Album::class,
-                    'multiple' => false,
-                    'required' => true
+                    'required' => false,
+                    'mapped' => false
                 ]
             )
+
             ->add(
-                'genre',
-                EntityType::class,
+                'genres',
+                TextType::class,
                 [
-                    'class' => Genre::class,
-                    'multiple' => true,
                     'required' => true
                 ]
             )

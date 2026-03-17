@@ -4,11 +4,7 @@
 {% endblock %}
 
 {% block body %}
-
-	{% include "_partials/_header.html.twig" %}
-
 	<main class="p-9">
-
 		<div class="main-container flex flex-col w-full gap-9">
 			<div>
 				{% include "_partials/_button.html.twig" with {
@@ -27,6 +23,9 @@
 
 				{% endfor %}
 			</div>
+
+
 		</main>
-		<div class="form-modal fixed z-10 w-[80%] h-[400px] bg-gray-300 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 "></div>
+
+
 	{% endblock %}

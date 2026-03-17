@@ -111,4 +111,6 @@ class Artist
 
         return $this;
     }
+
+  
 }

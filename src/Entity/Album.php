@@ -84,6 +84,8 @@ class Album
         return $this;
     }
 
+ 
+
     /**
      * @return Collection<int, Artist>
      */

@@ -18,10 +18,9 @@ final class TrackController extends AbstractController
     public function show(TrackRepository $trackRepository): Response
     {
 
-        $tracks = $trackRepository->findAll();
 
         return $this->render('track/index.html.twig', [
-            'WishListTracks' => $tracks
+            'WishListTracks' => $trackRepository->findAll()
         ]);
     }
 
@@ -39,12 +38,18 @@ final class TrackController extends AbstractController
             return new JsonResponse(['status' => 'successfuly Added']);
         }
 
-        return $this->render('_partials/_trackForm.html.twig', [
-            'trackForm' => $CreateAddTrackForm,
+        $formConstruction = $this->renderView('_partials/_form-modal.html.twig', 
+        [
+             'trackForm' => $CreateAddTrackForm->createView(),
         ]);
+
+      return new JsonResponse([
+        'status' => 'form created',
+        'content' =>$formConstruction,
+      ]);
     }
 
-    #[Route('/tracks/edit/{id}', name: 'app_edit_track', methods: ['GET', 'POST'], requirements:['id' => '\\d+'])]
+    #[Route('/tracks/edit/{id}', name: 'app_edit_track', methods: ['GET', 'POST'], requirements: ['id' => '\\d+'])]
     public function edit(Track $track, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -63,7 +68,7 @@ final class TrackController extends AbstractController
         ]);
     }
 
-    #[Route('/tracks/delete/{id}', name: 'app_delete_track', methods: ['GET', 'POST'], requirements:['id' => '\\d+'])]
+    #[Route('/tracks/delete/{id}', name: 'app_delete_track', methods: ['GET', 'POST'], requirements: ['id' => '\\d+'])]
     public function delete(Track $track, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -72,8 +77,6 @@ final class TrackController extends AbstractController
 
         return new JsonResponse(['status' => 'successfuly deleted']);
 
-        return $this->render('_partials/_deleteConfirmModal.html.twig', [
-           
-        ]);
+        return $this->render('_partials/_deleteConfirmModal.html.twig', []);
     }
 }
