@@ -6,26 +6,35 @@
 		<div class=" w-full flex flex-col justify-between gap-2">
 			{{form_label(trackForm.name, 'Titre :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
 			{{form_widget(trackForm.name, {'attr': {'class': 'bg-white rounded-sm'}})}}
+			{{form_errors(trackForm.name, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">
 			{{form_label(trackForm.artists, 'Artiste :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
 			{{form_widget(trackForm.artists, {'attr': {'class': 'bg-white rounded-sm'}})}}
+			{{form_errors(trackForm.artists, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
+
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">
 			{{form_label(trackForm.album, 'Album :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
 			{{form_widget(trackForm.album, {'attr': {'class': 'bg-white rounded-sm'}})}}
+			{{form_errors(trackForm.album, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
+
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">
 			{{form_label(trackForm.year, 'Année :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
 			{{form_widget(trackForm.year, {'attr': {'class': 'bg-white rounded-sm'}})}}
+			{{form_errors(trackForm.year, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
+
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">
 			{{form_label(trackForm.genres, 'Genre :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
 			{{form_widget(trackForm.genres, {'attr': {'class': 'bg-white rounded-sm'}})}}
+			{{form_errors(trackForm.genres, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
+
 		</div>
 
 		<div class="flex flex-row justify-between gap-2 pt-6">
@@ -36,7 +45,7 @@
 				 } %}
 
 			{% include "_partials/_button.html.twig" with {
-				class: 'close-modal',
+				class: 'add-track-btn',
 				title: 'Annuler',
 				bg: 'bg-gray-500'
 			}%}
