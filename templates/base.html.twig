@@ -12,7 +12,7 @@
 
 		{# CSS & JS #}
 		<link rel="stylesheet" href="{{ asset('styles/app.css') }}"> {% block stylesheets %}{% endblock %}
-		<script defer src='{{ asset('scripts/tracks.js')}}'></script>
+		{#<script defer src='{{ asset('scripts/tracks.js')}}'></script>#}
 		<script src="https://cdn.tailwindcss.com"></script>
 
 
@@ -20,9 +20,8 @@
 			{% block importmap %}
 				{{ importmap('app') }}
 			{% endblock %}
-
-
 		{% endblock %}
+		
 	</head>
 	<body class="bg-[#4C4848]">
 		{% include "_partials/_header.html.twig" %}

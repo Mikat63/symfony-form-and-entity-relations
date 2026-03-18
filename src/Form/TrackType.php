@@ -19,21 +19,32 @@ class TrackType extends AbstractType
             ->add('name', TextType::class)
             ->add(
                 'artists',
-                TextType::class,
+                EntityType::class,
                 [
+                    'class' => Artist::class,
+                    'choice_label' => 'name',
+                    'multiple' => true,
                     'required' => true
                 ]
             )
             ->add(
                 'album',
-                TextType::class,
-                ['required' => false]
+                EntityType::class,
+                [
+                    'class' => Album::class,
+                    'choice_label' => 'name',
+                    'multiple' => false,
+                    'required' => false
+                ]
             )
 
             ->add(
                 'year',
                 TextType::class,
                 [
+
+
+                
                     'required' => false,
                     'mapped' => false
                 ]
@@ -41,8 +52,11 @@ class TrackType extends AbstractType
 
             ->add(
                 'genres',
-                TextType::class,
+                EntityType::class,
                 [
+                    'class' => Genre::class,
+                    'choice_label' => 'name',
+                    'multiple' => true,
                     'required' => true
                 ]
             )

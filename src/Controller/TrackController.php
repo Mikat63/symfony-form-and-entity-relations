@@ -38,15 +38,17 @@ final class TrackController extends AbstractController
             return new JsonResponse(['status' => 'successfuly Added']);
         }
 
-        $formConstruction = $this->renderView('_partials/_form-modal.html.twig', 
-        [
-             'trackForm' => $CreateAddTrackForm->createView(),
-        ]);
+        $formConstruction = $this->renderView(
+            '_partials/_form-modal.html.twig',
+            [
+                'trackForm' => $CreateAddTrackForm->createView(),
+            ]
+        );
 
-      return new JsonResponse([
-        'status' => 'form created',
-        'content' =>$formConstruction,
-      ]);
+        return new JsonResponse([
+            'status' => 'form created',
+            'content' => $formConstruction,
+        ]);
     }
 
     #[Route('/tracks/edit/{id}', name: 'app_edit_track', methods: ['GET', 'POST'], requirements: ['id' => '\\d+'])]
@@ -63,8 +65,16 @@ final class TrackController extends AbstractController
             return new JsonResponse(['status' => 'successfuly updated']);
         }
 
-        return $this->render('_partials/_trackForm.html.twig', [
-            'trackForm' => $CreateAddTrackForm,
+        $formConstruction = $this->renderView(
+            '_partials/_form-modal.html.twig',
+            [
+                'trackForm' => $CreateAddTrackForm->createView(),
+            ]
+        );
+
+        return new JsonResponse([
+            'status' => 'form created',
+            'content' => $formConstruction,
         ]);
     }
 

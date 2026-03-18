@@ -6,9 +6,11 @@ use App\Repository\AlbumRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
+#[UniqueEntity('name')]
 class Album
 {
     #[ORM\Id]
@@ -16,8 +18,9 @@ class Album
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    #[Assert\NotBlank]
+    #[ORM\Column(length: 255, unique: true)]
+
+    
     #[Assert\Length(
         min: 3,
         max: 255,
@@ -27,14 +30,13 @@ class Album
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank]
     #[Assert\Length(
         min: 4,
         max: 4,
         minMessage: "L'année doit avoir 4 caractères",
         maxMessage: "L'année doit avoir 4 caractères",
     )]
-    
+
     private ?int $year = null;
 
     /**
@@ -84,7 +86,7 @@ class Album
         return $this;
     }
 
- 
+
 
     /**
      * @return Collection<int, Artist>
