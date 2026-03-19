@@ -1,0 +1,26 @@
+<dialog aria-modal="true" class="form-modal
+																								fixed left-1/2 top-1/2 -translate-x-1/4 -translate-y-1/4
+																								w-[80%]  bg-gray-300 p-4
+																								max-h-none overflow-visible
+																								flex flex-col gap-9 items-center sm:w-[50%] xl:w-[30%] 2xl:w-[20%]">
+	<h2 id="form-title-modal" class="w-full text-[24px] text-black  text-center font-bold"></h2>
+
+	<p>Tu es sûr de vouloir supprimer :
+		{{track.name}}</p>
+
+
+	<div class="flex flex-row justify-center gap-2 pt-6">
+		{% include "_partials/_button-submit.html.twig" with {
+					title: "Supprimer",
+					bg: "bg-red-500",
+					class: "submit-btn"
+				 } %}
+
+		{% include "_partials/_button.html.twig" with {
+				class: 'cancel-btn',
+				title: 'Annuler',
+				bg: 'bg-gray-500'
+			}%}
+	</div>
+
+</div></dialog>

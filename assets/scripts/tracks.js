@@ -1,3 +1,5 @@
+const TomSelect = window.TomSelect;
+
 // btn's listener
 const addTrackBtn = document.querySelector(".add-track-btn");
 const editTrackBtn = document.querySelectorAll(".edit-track-btn");
@@ -29,7 +31,7 @@ editTrackBtn.forEach((editBtn) => {
 deleteTrackBtn.forEach((deleteBtn) => {
     btnListener(
         deleteBtn,
-        `/tracks/edit/${deleteBtn.dataset.id}`,
+        `/tracks/delete/${deleteBtn.dataset.id}`,
         "Supprimer une track",
     );
 });
@@ -64,7 +66,7 @@ function showFormModal(data, title) {
             event.stopPropagation();
 
             FormModal.close();
-             document.body.style.overflow = "";
+            document.body.style.overflow = "";
             modalContainer.innerHTML = "";
         });
     }

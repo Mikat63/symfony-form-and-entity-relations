@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Track;
 use App\Form\TrackType;
 use Doctrine\ORM\EntityManagerInterface;
+use JsonException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,11 +83,30 @@ final class TrackController extends AbstractController
     public function delete(Track $track, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $entityManager->remove($track);
-        $entityManager->flush();
+        if ($request->isMethod('POST')) {
+            try {
 
-        return new JsonResponse(['status' => 'successfuly deleted']);
+                $entityManager->remove($track);
+                $entityManager->flush();
 
-        return $this->render('_partials/_deleteConfirmModal.html.twig', []);
+                return new JsonResponse(['status' => 'successfuly deleted']);
+            } catch (\Throwable $th) {
+                return new JsonResponse(['status' => 'error track not deleted']);
+            }
+        }
+
+
+
+        $modalConstruction = $this->renderView(
+            '_partials/_form-delete-track-modal.html.twig',
+            [
+                'track' => $track,
+            ]
+        );
+
+        return  new JsonResponse([
+            'status' => 'delete modal created',
+            'content' => $modalConstruction,
+        ]);
     }
 }

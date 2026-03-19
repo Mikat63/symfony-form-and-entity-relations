@@ -42,9 +42,6 @@ class TrackType extends AbstractType
                 'year',
                 TextType::class,
                 [
-
-
-                
                     'required' => false,
                     'mapped' => false
                 ]
