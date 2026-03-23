@@ -4,25 +4,26 @@ const TomSelect = window.TomSelect;
 const addTrackBtn = document.querySelector(".add-track-btn");
 const editTrackBtn = document.querySelectorAll(".edit-track-btn");
 const deleteTrackBtn = document.querySelectorAll(".delete-track-btn");
-const submitBtn = document.querySelector(".submit-btn");
 
 // This empty container is used as an anchor where JavaScript will inject the modal dialog received via AJAX.
 const modalContainer = document.querySelector(".modal-container");
 
 // listeners with button listened, route to controller and title for the dynamic modal
-function btnListener(btn, route, title) {
+function btnListener(btn, fn, route, title) {
     if (btn) {
         btn.addEventListener("click", () => {
-            getForm(route, title);
+            fn(route, title);
         });
     }
 }
 
-btnListener(addTrackBtn, "/tracks/new", "Ajouter une track");
+// getListeners
+btnListener(addTrackBtn, getForm, "/tracks/new", "Ajouter une track");
 
 editTrackBtn.forEach((editBtn) => {
     btnListener(
         editBtn,
+        getForm,
         `/tracks/edit/${editBtn.dataset.id}`,
         "Modifier une track",
     );
@@ -31,12 +32,13 @@ editTrackBtn.forEach((editBtn) => {
 deleteTrackBtn.forEach((deleteBtn) => {
     btnListener(
         deleteBtn,
+        getForm,
         `/tracks/delete/${deleteBtn.dataset.id}`,
         "Supprimer une track",
     );
 });
 
-// function to start fetch with route in param
+// function to fetch with route in param
 function getForm(route, title) {
     fetch(route, {
         method: "GET",
@@ -47,27 +49,65 @@ function getForm(route, title) {
         });
 }
 
+function postForm(route, form) {
+    const formData = new FormData(form);
+
+    fetch(route, {
+        method: "POST",
+        body: formData,
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("ok");
+        });
+}
+
 // this function add the dialog form for add and edit track in template. Change the title of the form.
 function showFormModal(data, title) {
+    console.log(data);
+
     modalContainer.innerHTML = data.content;
 
-    const FormModal = modalContainer.querySelector(".form-modal");
-    const formTitleModal = FormModal.querySelector("#form-title-modal");
+    const formModal = modalContainer.querySelector(".form-modal");
+    const formTitleModal = formModal.querySelector("#form-title-modal");
     formTitleModal.textContent = title;
 
-    FormModal.showModal();
+    formModal.showModal();
     document.body.style.overflow = "hidden";
 
-    const cancelBtn = FormModal.querySelector(".cancel-btn");
+    const cancelBtn = formModal.querySelector(".cancel-btn");
 
     if (cancelBtn) {
         cancelBtn.addEventListener("click", (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            FormModal.close();
+            formModal.close();
             document.body.style.overflow = "";
             modalContainer.innerHTML = "";
+        });
+    }
+
+    // for create and edit form
+    const form = formModal.querySelector("form");
+
+    if (form) {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            postForm(form.action, form);
+        });
+    }
+
+    // for delete
+    const confirmDeletetBtn = formModal.querySelector(".confirm-delete-btn");
+
+    if (confirmDeletetBtn) {
+        confirmDeletetBtn.addEventListener("click", () => {
+            fetch(confirmDeletetBtn.dataset.route, {
+                method: "POST",
+            })
+                .then((response) => response.json())
+                
         });
     }
 }

@@ -1,1 +1,2 @@
-<button type="button" class="{{class}} px-5 py-2 {{bg|default(' bg-white')}} text-white text-[20px] text-center rounded-lg hover:scale-105 focus:scale-105 outline-none">{{title}}</button>
+<button type="button" class="{{class}} px-5 py-2 {{bg|default(' bg-white')}} text-white text-[20px] text-center rounded-lg hover:scale-105 focus:scale-105 outline-none" {% if dataRoute is defined %}data-route="{{dataRoute}}"{% endif %}
+>{{title}}</button>

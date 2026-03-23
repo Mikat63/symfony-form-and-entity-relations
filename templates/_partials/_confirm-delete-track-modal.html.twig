@@ -10,10 +10,11 @@
 
 
 	<div class="flex flex-row justify-center gap-2 pt-6">
-		{% include "_partials/_button-submit.html.twig" with {
+		{% include "_partials/_button.html.twig" with {
 					title: "Supprimer",
 					bg: "bg-red-500",
-					class: "submit-btn"
+					class: "confirm-delete-btn",
+					dataRoute: path('app_delete_track',{id: track.id})
 				 } %}
 
 		{% include "_partials/_button.html.twig" with {

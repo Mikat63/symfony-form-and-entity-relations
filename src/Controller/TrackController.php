@@ -47,7 +47,7 @@ final class TrackController extends AbstractController
         );
 
         return new JsonResponse([
-            'status' => 'form created',
+            'status' => 'form new created',
             'content' => $formConstruction,
         ]);
     }
@@ -74,7 +74,7 @@ final class TrackController extends AbstractController
         );
 
         return new JsonResponse([
-            'status' => 'form created',
+            'status' => 'form edit created',
             'content' => $formConstruction,
         ]);
     }
@@ -98,7 +98,7 @@ final class TrackController extends AbstractController
 
 
         $modalConstruction = $this->renderView(
-            '_partials/_form-delete-track-modal.html.twig',
+            '_partials/_confirm-delete-track-modal.html.twig',
             [
                 'track' => $track,
             ]
