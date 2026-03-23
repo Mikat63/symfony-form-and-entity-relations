@@ -29,7 +29,9 @@ final class TrackController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $track = new Track();
-        $CreateAddTrackForm = $this->createForm(TrackType::class, $track);
+        $CreateAddTrackForm = $this->createForm(TrackType::class, $track, [
+            'action' => $this->generateUrl('app_new_track'),
+        ]);
         $CreateAddTrackForm->handleRequest($request);
 
         if ($CreateAddTrackForm->isSubmitted() && $CreateAddTrackForm->isValid()) {
@@ -56,7 +58,9 @@ final class TrackController extends AbstractController
     public function edit(Track $track, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $CreateAddTrackForm = $this->createForm(TrackType::class, $track);
+        $CreateAddTrackForm = $this->createForm(TrackType::class, $track, [
+            'action' => $this->generateUrl('app_edit_track', ['id' => $track->getId()])
+        ]);
         $CreateAddTrackForm->handleRequest($request);
 
         if ($CreateAddTrackForm->isSubmitted() && $CreateAddTrackForm->isValid()) {

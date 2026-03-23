@@ -17,7 +17,18 @@ function btnListener(btn, fn, route, title) {
     }
 }
 
-// getListeners
+// functions to fetch with route in param
+function getForm(route, title) {
+    fetch(route, {
+        method: "GET",
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            showFormModal(data, title);
+        });
+}
+
+// Listeners
 btnListener(addTrackBtn, getForm, "/tracks/new", "Ajouter une track");
 
 editTrackBtn.forEach((editBtn) => {
@@ -38,16 +49,6 @@ deleteTrackBtn.forEach((deleteBtn) => {
     );
 });
 
-// function to fetch with route in param
-function getForm(route, title) {
-    fetch(route, {
-        method: "GET",
-    })
-        .then((response) => response.json())
-        .then((data) => {
-            showFormModal(data, title);
-        });
-}
 
 function postForm(route, form) {
     const formData = new FormData(form);
@@ -105,9 +106,7 @@ function showFormModal(data, title) {
         confirmDeletetBtn.addEventListener("click", () => {
             fetch(confirmDeletetBtn.dataset.route, {
                 method: "POST",
-            })
-                .then((response) => response.json())
-                
+            }).then((response) => response.json());
         });
     }
 }
