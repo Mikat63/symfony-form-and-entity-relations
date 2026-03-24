@@ -1,8 +1,8 @@
 <dialog aria-modal="true" class="form-modal
-						fixed left-1/2 top-1/2 -translate-x-1/4 -translate-y-1/4
-						w-[80%]  bg-gray-300 p-4
-						max-h-none overflow-visible
-						flex flex-col gap-9 items-center sm:w-[50%] xl:w-[30%] 2xl:w-[20%]">
+																		fixed left-1/2 top-1/2 -translate-x-1/4 -translate-y-1/4
+																		w-[80%]  bg-gray-300 p-4
+																		max-h-none overflow-visible
+																		flex flex-col gap-9 items-center sm:w-[50%] xl:w-[30%] 2xl:w-[20%]">
 	<h2 id="form-title-modal" class="w-full text-[24px] text-black  text-center font-bold"></h2>
 
 	<div class="w-[80%]">
@@ -14,9 +14,9 @@
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">
-			{{form_label(trackForm.artists, 'Artiste :', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
-			{{form_widget(trackForm.artists, {'attr': {'class': ' bg-white rounded-sm px-2','required': true, 'placeholder': 'Entrez un artiste','minLength': 3, 'maxlength': 255}})}}
-			{{form_errors(trackForm.artists, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
+			{{form_label(trackForm.artistNames, 'Artistes (séparés par des virgules)', {'label_attr': {'class': 'font-semibold text-black text-[20px]' } })}}
+			{{form_widget(trackForm.artistNames, {'attr': {'class': ' bg-white rounded-sm px-2','required': true, 'placeholder': 'Entrez un artiste','minLength': 3, 'maxlength': 255}})}}
+			{{form_errors(trackForm.artistNames, {'attr': {'class': 'text-red-500 font-bold text-[16px]'}})}}
 		</div>
 
 		<div class="flex flex-col justify-between gap-2">

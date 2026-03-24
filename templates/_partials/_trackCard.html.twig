@@ -14,10 +14,10 @@
 			{% endfor %}
 		</p>
 
-		<p class="text-white text-[28px]">{{wishListTrack.album.name}}
-		</p>
-
-		<p class="text-white text-[28px]">{{wishListTrack.album.year}}</p>
+		{% if wishListTrack.album %}
+			<p class="text-white text-[28px]">{{wishListTrack.album.name}}</p>
+			<p class="text-white text-[28px]">{{wishListTrack.album.year}}</p>
+		{% endif %}
 
 
 		<p class="text-white text-[28px]">
@@ -45,6 +45,4 @@
 			dataId: wishListTrack.id
 		} %}
 	</div>
-
-
 </article>

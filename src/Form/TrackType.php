@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Album;
-use App\Entity\Artist;
+use App\Entity\Track;
 use App\Entity\Genre;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,26 +15,53 @@ class TrackType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // artists
+        $track = $options['data'];
+        $artistString = "";
+
+        if ($track instanceof Track) {
+            $artists = $track->getArtists()->toArray();
+
+            if ($artists) {
+                $artistString = implode(", ", $artists);
+            }
+        }
+
+        // album
+        $album = $options["data"]->getAlbum();
+
+        if ($album) {
+            $albumName = $album->getName();
+            $year = $album->getYear();
+        } else {
+            $albumName = '';
+            $year = "";
+        }
+
         $builder
             ->add('name', TextType::class)
+
+
             ->add(
-                'artists',
-                EntityType::class,
+                'artistNames',
+                TextType::class,
                 [
-                    'class' => Artist::class,
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    'required' => true
+                    'mapped' => false,
+                    'required' => true,
+                    'attr' => ['placeholder' => 'Ex: Daft Punk, Gesaffelstein'],
+                    'data' => $artistString,
                 ]
             )
+
             ->add(
                 'album',
-                EntityType::class,
+                TextType::class,
                 [
-                    'class' => Album::class,
-                    'choice_label' => 'name',
-                    'multiple' => false,
-                    'required' => false
+                    'mapped' => false,
+                    'data' => $albumName,
+                    'required' => false,
+                    'attr' => ['placeholder' => 'Ex: Hybrid Theory'],
+
                 ]
             )
 
@@ -43,7 +70,8 @@ class TrackType extends AbstractType
                 TextType::class,
                 [
                     'required' => false,
-                    'mapped' => false
+                    'mapped' => false,
+                    'data' => $year,
                 ]
             )
 

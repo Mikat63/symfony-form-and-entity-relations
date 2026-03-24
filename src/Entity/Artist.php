@@ -47,6 +47,11 @@ class Artist
         $this->tracks = new ArrayCollection();
     }
 
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,7 +64,7 @@ class Artist
 
     public function setName(string $name): static
     {
-        $this->name = $name;
+        $this->name = ucfirst($name);
 
         return $this;
     }
@@ -114,6 +119,4 @@ class Artist
 
         return $this;
     }
-
-  
 }

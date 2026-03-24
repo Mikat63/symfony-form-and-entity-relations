@@ -49,7 +49,6 @@ deleteTrackBtn.forEach((deleteBtn) => {
     );
 });
 
-
 function postForm(route, form) {
     const formData = new FormData(form);
 
@@ -59,14 +58,12 @@ function postForm(route, form) {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log("ok");
+            console.log(data);
         });
 }
 
 // this function add the dialog form for add and edit track in template. Change the title of the form.
 function showFormModal(data, title) {
-    console.log(data);
-
     modalContainer.innerHTML = data.content;
 
     const formModal = modalContainer.querySelector(".form-modal");
