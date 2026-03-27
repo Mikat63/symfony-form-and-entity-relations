@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class TrackController extends AbstractController
 {
-    #[Route('/', name: 'app_home', methods: ['GET'])]
+    #[Route('/tracks/show', name: 'app_show_tracks', methods: ['GET'])]
     public function show(TrackRepository $trackRepository): Response
     {
 
@@ -93,8 +93,6 @@ final class TrackController extends AbstractController
     public function edit(Track $track, Request $request, ArtistRepository $artistRepository, AlbumRepository $albumRepository, EntityManagerInterface $entityManager): Response
     {
 
-   
-       
         $CreateAddTrackForm = $this->createForm(TrackType::class, $track, [
             'action' => $this->generateUrl('app_edit_track', ['id' => $track->getId()])
         ]);

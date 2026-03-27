@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte
+{% endblock %}
+
+{% block body %}
+	<main class="w-full flex flex-col items-center p-9">
+		<div class="w-[40%] flex flex-col items-center gap-7">
+			<div>
+				<h1 class="text-white font-bold text-center text-2xl">Créer un compte</h1>
+			</div>
+
+			{{ form_start(registrationForm, { attr: { class: 'flex flex-col gap-4 w-full text-[16px] items-center' } }) }}
+			<div class="flex flex-col gap-4 w-full">
+				<div class="flex flex-row justify-between">
+					{{ form_label(registrationForm.email, 'Email :', { label_attr: { class: 'text-white font-semibold' } }) }}
+					{{ form_widget(registrationForm.email, { attr: { class: 'rounded-md px-2 focus:border focus:border-blue-500', placeholder: 'Entrez un email' } }) }}
+				</div>
+
+				<div class="flex flex-row justify-between">
+					{{ form_label(registrationForm.plainPassword, 'Mot de passe :', { label_attr: { class: 'text-white font-semibold' } }) }}
+					{{ form_widget(registrationForm.plainPassword, { attr: { class: 'rounded-md px-2 focus:border focus:border-blue-500', placeholder: 'Entrez un mot de passe' } }) }}
+				</div>
+			</div>
+
+
+			<button class="rounded-md text-white bg-blue-500 w-30 p-2 font-semibold focus:outline-none focus:scale-105 hover:scale-105" type="submit">
+				S'inscrire
+			</button>
+			{{ form_end(registrationForm) }}
+
+			{{ form_errors(registrationForm) }}
+
+		</div>
+	</main>
+{% endblock %}

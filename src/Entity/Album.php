@@ -10,7 +10,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
-#[UniqueEntity('name')]
 class Album
 {
     #[ORM\Id]
@@ -20,7 +19,7 @@ class Album
 
     #[ORM\Column(length: 255, unique: true)]
 
-    
+
     #[Assert\Length(
         min: 3,
         max: 255,
