@@ -15,6 +15,7 @@
 				<div class="flex flex-row justify-between">
 					{{ form_label(registrationForm.email, 'Email :', { label_attr: { class: 'text-white font-semibold' } }) }}
 					{{ form_widget(registrationForm.email, { attr: { class: 'rounded-md px-2 focus:border focus:border-blue-500', placeholder: 'Entrez un email' } }) }}
+
 				</div>
 
 				<div class="flex flex-row justify-between">
@@ -27,9 +28,16 @@
 			<button class="rounded-md text-white bg-blue-500 w-30 p-2 font-semibold focus:outline-none focus:scale-105 hover:scale-105" type="submit">
 				S'inscrire
 			</button>
+			
+			{% if form_errors(registrationForm.email) %}
+				<div class="text-red-600 bg-red-400 bg-opacity-50 border-2 border-red-500 py-1 px-2 rounded">
+					{{ form_errors(registrationForm.email) }}
+				</div>
+			{% endif %}
+
+
 			{{ form_end(registrationForm) }}
 
-			{{ form_errors(registrationForm) }}
 
 		</div>
 	</main>
